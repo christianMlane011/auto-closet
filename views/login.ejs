@@ -23,7 +23,7 @@
         <input type="text" name="username" id="username" required> -->
         <br><br>
         <label for="email">Enter your email: </label><br>
-        <input type="email" name="email" id="email" required>
+        <input type="text" name="email" id="email" required>
         <div class="email error"></div>
         <br><br>
         <label for="password">Enter a password: </label><br>
@@ -39,15 +39,47 @@
 
     <script>
       const form = document.querySelector('form');
+      const emailError = document.querySelector('.email.error');
+      const passwordError = document.querySelector('.password.error');
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // reset errors
+        emailError.textContent = '';
+        passwordError.textContent = '';
 
         // get the values of the form
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
-      })
+
+        try {
+          const res = await fetch('/login', {
+            method: 'POST',
+
+            // Full version is JSON.stringify({ email: email, password: password })
+            // because the type and value are the same, we can shorten it
+            body: JSON.stringify({ email, password }),
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const data = await res.json();
+          console.log(data);
+          if (data.errors) {
+            emailError.textContent = data.errors.email;
+            passwordError.textContent = data.errors.password;
+          }
+
+          if (data.user) {
+            location.assign('/'); 
+          }
+
+        } 
+        catch (err) {
+          console.log(err);
+        }
+
+
+      });  
     </script>
     
   </div>
