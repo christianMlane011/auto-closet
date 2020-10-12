@@ -22,8 +22,8 @@ const userSchema = mongoose.Schema({
     }
 });
 
-// fire a function before doc is saved to db
-userSchema.pre('save', async  function (next) {
+// mongoose hook (middleware) - fire a function before doc is saved to db
+userSchema.pre('save', async  function (next) { // regular function instead of arrow function so that we have access to (this)
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
