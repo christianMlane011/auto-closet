@@ -4,6 +4,7 @@ const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
 const { dbKey } = require("./config");
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const multer = require("multer");
 
 
 const app = express();
@@ -16,6 +17,22 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
+//app.use(multer({dest:'userUploads/'}).any());
+
+
+// Sets storage for multer to /userUploads and 
+// names the files with the user's original filename plus
+// the current timestamp
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'userUploads')
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname + '-' + Date.now())
+    }
+});
+
+var upload = multer({ storage: storage });
 
 
 
@@ -25,8 +42,11 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true, useCre
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err));
 
+ 
 
-
+// Checks if the user is logged in for each route,
+// and if they are gives the ejs files access to a user
+// where they can pull and display the user's email (used in the nav)
 app.get('*', checkUser);
 
 app.get('/', (req, res) => {
@@ -36,6 +56,17 @@ app.get('/', (req, res) => {
 app.get('/clothing', requireAuth, (req, res) => {
     res.render('clothing');
 });
+
+app.get('/upload', requireAuth, (req, res) => {
+    res.render('upload');
+}); 
+
+app.post('/upload', requireAuth, upload.single('imageUpload'), (req, res) => {
+    const file = req.file;
+    console.log(req.files);
+    //res.send(file);
+    res.redirect('/upload');
+})
 
 app.use(authRoutes);
 
