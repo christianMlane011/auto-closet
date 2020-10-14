@@ -5,6 +5,10 @@ const cookieParser = require("cookie-parser");
 const { dbKey } = require("./config");
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const multer = require("multer");
+const multers3 = require("multer-s3");
+//const { uploadFile } = require("./fileUpload");
+const aws = require("aws-sdk");
+const { s3 } = require("./fileUpload");
 
 
 const app = express();
@@ -23,14 +27,25 @@ app.use(cookieParser());
 // Sets storage for multer to /userUploads and 
 // names the files with the user's original filename plus
 // the current timestamp
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'userUploads')
+// var storage = multers3({
+//     destination: (req, file, cb) => {
+//       cb(null, 'userUploads')
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.originalname + '-' + Date.now())
+//     }
+// });
+
+var storage = multers3({
+    s3: s3,
+    bucket: 'auto-closet',
+    metadata: (req, file, cb) => {
+      cb(null, {fieldName: file.fieldname});
     },
-    filename: (req, file, cb) => {
-      cb(null, file.originalname + '-' + Date.now())
+    key: (req, file, cb) => {
+      cb(null, file.originalname + '-' + Date.now().toString() + '.jpg'); // change uploaded file name to original file name plus date at time of upload
     }
-});
+})
 
 var upload = multer({ storage: storage });
 
@@ -61,9 +76,11 @@ app.get('/upload', requireAuth, (req, res) => {
     res.render('upload');
 }); 
 
+// Pulls the image uploaded to the html element 'imageUpload' in the form on upload.ejs
+// and saves it to the multer storage space 
 app.post('/upload', requireAuth, upload.single('imageUpload'), (req, res) => {
     const file = req.file;
-    console.log(req.files);
+    console.log(file.originalname);
     //res.send(file);
     res.redirect('/upload');
 })
