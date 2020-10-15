@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
+const { userImage } = require("./Image");
 
 const userSchema = mongoose.Schema({
     email: {
@@ -10,16 +11,17 @@ const userSchema = mongoose.Schema({
         lowercase: true,
         validate: [isEmail, 'Please enter a valid email']
     },
-    // username: {
-    //     type: String,
-    //     required: true,
-    //     unique: true
-    // },
     password: {
         type: String,
         required: [true, 'Please enter a password'],
         minlength: [8, 'Minimum password length is 8 characters']
-    }
+    },
+    images: [
+        {
+        clothing: String,
+        link: String
+        }   
+    ]
 });
 
 // mongoose hook (middleware) - fire a function before doc is saved to db

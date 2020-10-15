@@ -3,6 +3,10 @@ const multers3 = require("multer-s3");
 const aws = require("aws-sdk");
 const { awsID, awsSecret } = require('../config');
 const path = require("path");
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require('../config');
+
 
 function checkFileType(file, cb){
 
@@ -60,7 +64,30 @@ module.exports.imageUpload_get = (req, res) => {
 }
 
 module.exports.imageUpload_post = (req, res) => {
-    console.log(req.file);
+
+    const file = req.file;
+    const image = {clothing: 'test', link: req.file.location};
+    const token = req.cookies.jwt;
+
+    if (token){
+        jwt.verify(token, jwtSecret, async (err, decodedToken) => {
+            if (err){
+                console.log(err.message);
+            }
+            else{
+                //console.log('token: ' , decodedToken);
+                let user = await User.findById(decodedToken.id);
+                console.log(user._id);
+                try {
+                    user.images.push(image);
+                    user.save();
+                } catch (error) {
+                    console.log(error);
+                }
+                
+            }
+        });
+    }
     
     // res.send(file);
     res.redirect('upload');
