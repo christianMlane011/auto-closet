@@ -8,7 +8,17 @@
     <%- include("partials/nav.ejs") %>
 
     <div class="upper">
-      
+      <% if (user.images){
+        user.images.forEach(element => {
+          %> 
+          <div class="upper_tile">
+            <img src="<%=element.link%>" width = "400" alt="A piece of upper wear">  
+          </div>
+        <% }); 
+
+
+       } %>
+       
     </div>
   
       <div class="lower">

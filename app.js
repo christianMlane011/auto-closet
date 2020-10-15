@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { dbKey } = require("./config");
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const imageUploadRoutes = require("./routes/imageUploadRoutes");
+const { addImages } = require("./middleware/imageDisplayMiddleware");
 //const { uploadFile } = require("./fileUpload");
 // const aws = require("aws-sdk");
 
@@ -40,7 +41,7 @@ app.get('/', (req, res) => {
     res.render('about'); 
 });
 
-app.get('/clothing', requireAuth, (req, res) => {
+app.get('/clothing', requireAuth, addImages, (req, res) => {
     res.render('clothing');
 });
 
