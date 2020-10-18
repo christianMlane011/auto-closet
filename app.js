@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const { dbKey } = require("./config");
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const imageUploadRoutes = require("./routes/imageUploadRoutes");
-const { addImages } = require("./middleware/imageDisplayMiddleware");
+const { addImages } = require("./middleware/imageUploadMiddleware");
 //const { uploadFile } = require("./fileUpload");
 // const aws = require("aws-sdk");
 

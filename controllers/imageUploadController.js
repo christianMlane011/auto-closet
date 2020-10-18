@@ -66,8 +66,9 @@ module.exports.imageUpload_get = (req, res) => {
 module.exports.imageUpload_post = (req, res) => {
 
     const file = req.file;
-    const image = {clothing: 'test', link: req.file.location};
+    const image = {clothing: req.body.clothingType, link: req.file.location};
     const token = req.cookies.jwt;
+    // console.log(req.body.clothingType);
 
     if (token){
         jwt.verify(token, jwtSecret, async (err, decodedToken) => {

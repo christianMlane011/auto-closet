@@ -13,51 +13,80 @@ body{
   margin-top: 127px;
 }
 
+a{
+  text-decoration: none;
+  color: #222;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+
 /* Clothing tile styles */
-.upper_tile{
+.lower, .upper{
+  scroll-snap-type: x mandatory;
+  width: 95%;
+  /* height: 400px; */
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  margin: auto;
+  /* border: 5px solid f0f0f0; */
+  border-radius: 20px;
+}
+
+.lower{
+  height: 300px;
+}
+
+.upper_tile, .lower_tile{
     height: 100%;
-    max-height: 100%;
-    max-width: 100%;
+    /* max-height: 400px; */
+    /* max-width: 100%; 
+    height: 400px;
+    width: 400px; */
     margin-bottom: -10px;
+    position: relative;
+    /* border: 1px solid #e7e7e7; */
+    scroll-snap-align: start;
+}
+
+.lower_tile img, .upper_tile img{
+  max-height: 100%;
+  max-width: 250px;
+}
+
+.delete{
+  /* z-index: 1; */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 30px;
+  width: 30px;
+}
+
+.delete img{
+  height: 30px;
+  width: 30px;
 }
 
 
 /* Ability to hide scrollbars, chrome specific */
 /* .lower::-webkit-scrollbar, .upper::-webkit-scrollbar {
+  height: 5px;
   display: none;
 } */
 
-.lower, .upper{
-  width: 95%;
-  height: 350px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  border: 5px solid f0f0f0;
-  border-radius: 20px;
-}
-
-
-.lower_tile{
-  max-height: 100%;
-  max-width: 100%;
-}
 
 
 
 
-a{
-  text-decoration: none;
-  color: #222;
-}
-a:hover{
-  text-decoration: underline;
-}
+
 
 /* Static Title and nav for each page */
 .welcome{
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -76,9 +105,8 @@ a:hover{
   color: white;
 }
 
-
-
 .nav-bar{
+  z-index: 1;
   position: fixed;
   top: 98px;
   left: 0;
@@ -130,6 +158,7 @@ a:hover{
   border-radius: 20px;
   padding: 5px;
 }
+
 #about-title{
   width: 100%;
   margin-top: 50px;
@@ -255,14 +284,18 @@ a:hover{
   padding-top: 20px;
 }
 
-.img.form label{
+.img.form label#imageUpload{
   margin-left: 10px;
 }
 
-.img.form input{
+.img.form input#imageUpload{
   width: 80%;
   margin: 10px;
   padding: 5px; 
+}
+
+.img.form label#Top, .img.form p, .img.form label#Bottom{
+  margin-left: 15px;
 }
 
 .img.form input#imageSubmit{

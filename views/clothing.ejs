@@ -8,41 +8,78 @@
     <%- include("partials/nav.ejs") %>
 
     <div class="upper">
+      <!-- Each image is added twice, so that the scrollbar can bring any element in the upper class to match any element in the lower class
+      so that users can match any piece of clothing they like -->
+
       <% if (user.images){
         user.images.forEach(element => {
+          if (element.clothing == 'Top'){
           %> 
           <div class="upper_tile">
-            <img src="<%=element.link%>" width = "400" alt="A piece of upper wear">  
+            <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
+            <a class="delete" href="/clothing" >
+              <img src="/trashcan.svg" alt="delete icon">
+            </a> 
+          </div>          
+      <% } }); } %>
+
+      <% if (user.images){
+        user.images.forEach(element => {
+          if (element.clothing == 'Top'){
+          %> 
+          <div class="upper_tile">
+            <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
+            <a class="delete" href="/clothing" >
+              <img src="/trashcan.svg" alt="delete icon">
+            </a> 
           </div>
-        <% }); 
-
-
-       } %>
-       
+          
+      <% } }); } %>
     </div>
-  
-      <div class="lower">
-  
-        <div class="lower_tile">
-          <img src="images/pants.jpg" width="400" alt="">
-        </div>
-        <div class="lower_tile">
-          <img src="images/pants2.jpg" width="400" alt="">
-        </div>
-        <div class="lower_tile">
-          <img src="images/pants3.jpg" width="400" alt="">
-        </div>
-        <div class="lower_tile">
-          <img src="images/pants4.jpg" width="400" alt="">
-        </div>
-        <div class="lower_tile">
-          <img src="images/pants5.jpg" width="400" alt="">
-        </div>
-  
-  
-      </div>
-
     
+    <div class="lower">
+
+      <% if (user.images){
+        user.images.forEach(element => {
+          if (element.clothing == 'Bottom'){
+          %> 
+          <div class="lower_tile">
+            <img src="<%=element.link%>" width="300" alt="A piece of lower wear"> 
+            <a class="delete" data-doc="<%= element %>" href="/clothing" >
+              <img src="/trashcan.svg" alt="delete icon">
+            </a> 
+          </div>
+          
+      <% } }); } %>
+
+      <% if (user.images){
+        user.images.forEach(element => {
+          if (element.clothing == 'Bottom'){
+          %> 
+          <div class="lower_tile">
+            <img src="<%=element.link%>" width="300" alt="A piece of lower wear">
+            <form>
+              <a class="delete" data-doc="<%= element %>" href="/clothing" >
+                <img src="/trashcan.svg" alt="delete icon">
+              </a> 
+            </form> 
+          </div>
+          
+      <% } }); } %>
+        
+
+  
+  
+    </div>
+
+
+    <script>
+      const trashcan = document.querySelector("a.delete");
+      trashcan.addEventListener('click', (e) => {
+        console.log("Deleting Try");
+      });
+      
+    </script>
 
     
 

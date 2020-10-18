@@ -23,14 +23,23 @@
           <fieldset>
             <h2>Select an image to upload </h2>
             <input type="file" name="imageUpload" id="imageUpload" multiple >
+            <br>
+            <p>Please select which type of clothing you are uploading: </p>
+            <label for="Top" id="Top">Top</label>
+            <input type="radio" name="clothingType" id="Top" value="Top" required>
+            <label for="Bottom" id="Bottom">Bottom</label>
+            <input type="radio" name="clothingType" id="Bottom" value="Bottom">
             <br><br>
-            <input type="submit" id="imageSubmit" value="Upload"></input>
+            <input type="submit" id="imageSubmit" value="Upload" ></input>
+            <br><br>
+
         </fieldset>
   
   
         </form>
       </div>
-    
+
+    </div>
 
   </body>
 </html>
