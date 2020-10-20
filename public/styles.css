@@ -27,13 +27,16 @@ a:hover{
 .lower, .upper{
   scroll-snap-type: x mandatory;
   width: 95%;
-  /* height: 400px; */
-  overflow-x: scroll;
-  overflow-y: hidden;
+  height: 250px;
   display: flex;
   margin: auto;
-  /* border: 5px solid f0f0f0; */
   border-radius: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.lower h2, .upper h2{
+  margin: auto;
 }
 
 .lower{
@@ -42,23 +45,19 @@ a:hover{
 
 .upper_tile, .lower_tile{
     height: 100%;
-    /* max-height: 400px; */
-    /* max-width: 100%; 
-    height: 400px;
-    width: 400px; */
     margin-bottom: -10px;
     position: relative;
-    /* border: 1px solid #e7e7e7; */
+    border: 1px solid #e7e7e7;
     scroll-snap-align: start;
 }
 
 .lower_tile img, .upper_tile img{
   max-height: 100%;
   max-width: 250px;
+  height: 300px;
 }
 
 .delete{
-  /* z-index: 1; */
   position: absolute;
   top: 0px;
   right: 0px;
@@ -74,15 +73,6 @@ a:hover{
   height: 30px;
   width: 30px;
 }
-
-
-/* Ability to hide scrollbars, chrome specific */
-/* .lower::-webkit-scrollbar, .upper::-webkit-scrollbar {
-  height: 5px;
-  display: none;
-} */
-
-
 
 
 

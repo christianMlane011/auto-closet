@@ -4,16 +4,20 @@
   <body>
 
 
+    
+
 
     <%- include("partials/nav.ejs") %>
+
+    <h2><br> To be able to properly match up items, it's best to have at least 6 pieces in each category <br><br></h2>
 
     <div class="upper">
       <!-- Each image is added twice, so that the scrollbar can bring any element in the upper class to match any element in the lower class
       so that users can match any piece of clothing they like -->
       
-      <% if (user.images){ %>
+      <% if (user.images.length != 0){ %>
         <% user.images.forEach(element => { %> 
-          <% if (element.clothing == 'Top'){ %>
+          <% if (element.clothing == 'Top'){   %>
             <% size = (element.link.split('/')).length; %>
             <% const originalName = (element.link.split('/')[size-1]); %>
           <div class="upper_tile">
@@ -22,9 +26,11 @@
               <img src="/trashcan.svg" alt="delete icon">
             </a> 
           </div>          
-      <% } }) } %>
+      <% } }) } else { %>
+        <h2>Sorry, no tops to display!</h2>
+      <% } %>
 
-      <% if (user.images){ %>
+      <% if (user.images.length != 0){ %>
         <% user.images.forEach(element => { %> 
           <% if (element.clothing == 'Top'){ %>
             <% size = (element.link.split('/')).length; %>
@@ -43,7 +49,7 @@
     
     <div class="lower">
 
-      <% if (user.images){ %>
+      <% if (user.images.length != 0){ %>
         <% user.images.forEach(element => { %> 
           <% if (element.clothing == 'Bottom'){ %>
             <% size = (element.link.split('/')).length; %>
@@ -54,8 +60,23 @@
               <img src="/trashcan.svg" alt="delete icon">
             </a> 
           </div>          
-      <% } }) } %>
+          <% } }) } else { %>
+            <h2>Sorry, no bottoms to display!</h2>
+          <% } %>
 
+      
+      <% if (user.images.length != 0){ %>
+        <% user.images.forEach(element => { %> 
+          <% if (element.clothing == 'Bottom'){ %>
+            <% size = (element.link.split('/')).length; %>
+            <% const originalName = (element.link.split('/')[size-1]); %>
+          <div class="lower_tile">
+            <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
+            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
+              <img src="/trashcan.svg" alt="delete icon">
+            </a> 
+          </div>          
+          <% } }) } %>
 
       
       
