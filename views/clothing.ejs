@@ -10,63 +10,55 @@
     <div class="upper">
       <!-- Each image is added twice, so that the scrollbar can bring any element in the upper class to match any element in the lower class
       so that users can match any piece of clothing they like -->
-
-      <% if (user.images){
-        user.images.forEach(element => {
-          if (element.clothing == 'Top'){
-          %> 
+      
+      <% if (user.images){ %>
+        <% user.images.forEach(element => { %> 
+          <% if (element.clothing == 'Top'){ %>
+            <% size = (element.link.split('/')).length; %>
+            <% const originalName = (element.link.split('/')[size-1]); %>
           <div class="upper_tile">
             <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
-            <a class="delete" href="/clothing" >
+            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
               <img src="/trashcan.svg" alt="delete icon">
             </a> 
           </div>          
-      <% } }); } %>
+      <% } }) } %>
 
-      <% if (user.images){
-        user.images.forEach(element => {
-          if (element.clothing == 'Top'){
-          %> 
+      <% if (user.images){ %>
+        <% user.images.forEach(element => { %> 
+          <% if (element.clothing == 'Top'){ %>
+            <% size = (element.link.split('/')).length; %>
+            <% const originalName = (element.link.split('/')[size-1]); %>
           <div class="upper_tile">
             <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
-            <a class="delete" href="/clothing" >
+            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
               <img src="/trashcan.svg" alt="delete icon">
             </a> 
-          </div>
-          
-      <% } }); } %>
+          </div>          
+      <% } }) } %>
+
+      
+
     </div>
     
     <div class="lower">
 
-      <% if (user.images){
-        user.images.forEach(element => {
-          if (element.clothing == 'Bottom'){
-          %> 
+      <% if (user.images){ %>
+        <% user.images.forEach(element => { %> 
+          <% if (element.clothing == 'Bottom'){ %>
+            <% size = (element.link.split('/')).length; %>
+            <% const originalName = (element.link.split('/')[size-1]); %>
           <div class="lower_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of lower wear"> 
-            <a class="delete" data-doc="<%= element %>" href="/clothing" >
+            <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
+            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
               <img src="/trashcan.svg" alt="delete icon">
             </a> 
-          </div>
-          
-      <% } }); } %>
+          </div>          
+      <% } }) } %>
 
-      <% if (user.images){
-        user.images.forEach(element => {
-          if (element.clothing == 'Bottom'){
-          %> 
-          <div class="lower_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of lower wear">
-            <form>
-              <a class="delete" data-doc="<%= element %>" href="/clothing" >
-                <img src="/trashcan.svg" alt="delete icon">
-              </a> 
-            </form> 
-          </div>
-          
-      <% } }); } %>
-        
+
+      
+      
 
   
   
@@ -74,10 +66,21 @@
 
 
     <script>
-      const trashcan = document.querySelector("a.delete");
-      trashcan.addEventListener('click', (e) => {
-        console.log("Deleting Try");
-      });
+      const trashcans = document.querySelectorAll("a.delete");
+      for (const trashcan of trashcans){
+        trashcan.addEventListener('click', (e) => {
+        // console.log("event clicked");
+        const endpoint = `/clothing/${trashcan.dataset.doc}`;
+        // console.log('end', endpoint);
+        fetch(endpoint, {
+          method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+      })
+    };
+
       
     </script>
 

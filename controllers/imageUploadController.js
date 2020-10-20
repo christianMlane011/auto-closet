@@ -96,6 +96,7 @@ module.exports.imageUpload_post = (req, res) => {
 }
 
 module.exports.upload = upload;
+module.exports.s3 = s3;
 
 
   

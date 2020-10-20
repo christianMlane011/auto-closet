@@ -8,7 +8,7 @@ const imageUploadRoutes = require("./routes/imageUploadRoutes");
 const { addImages } = require("./middleware/imageUploadMiddleware");
 //const { uploadFile } = require("./fileUpload");
 // const aws = require("aws-sdk");
-
+const clothingRoutes = require("./routes/clothingRoutes");
 
 
 const app = express();
@@ -41,9 +41,9 @@ app.get('/', (req, res) => {
     res.render('about'); 
 });
 
-app.get('/clothing', requireAuth, addImages, (req, res) => {
-    res.render('clothing');
-});
+
+app.use('/clothing', requireAuth, addImages, clothingRoutes);
+
 
 // User authorization routing, includes signing up, logging in, and logging out
 app.use(authRoutes);

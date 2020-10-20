@@ -66,6 +66,10 @@ a:hover{
   width: 30px;
 }
 
+.delete:hover{
+  cursor: pointer;
+}
+
 .delete img{
   height: 30px;
   width: 30px;
