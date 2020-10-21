@@ -32,6 +32,7 @@ userSchema.pre('save', async  function (next) { // regular function instead of a
 });
  
 // static method to log in user
+// Get the user and if it exists, use bcrypt to compare the entered password against the stored one
 userSchema.statics.login = async function(email, password) {
     const user = await this.findOne({ email });
 
