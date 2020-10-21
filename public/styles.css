@@ -1,4 +1,4 @@
-body, ul, li, h1, h2, a{
+body, ul, li, h1, h2, h5, a{
   margin: 0;
   padding: 0;
   font-family: arial;
@@ -6,6 +6,12 @@ body, ul, li, h1, h2, a{
 
 h1, h2{
   text-align: center;
+}
+
+h5{
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 body{
@@ -21,6 +27,7 @@ a{
 a:hover{
   text-decoration: underline;
 }
+
 
 
 /* Clothing tile styles */
@@ -76,8 +83,6 @@ a:hover{
 
 
 
-
-
 /* Static Title and nav for each page */
 .welcome{
   z-index: 1;
@@ -126,12 +131,7 @@ a:hover{
 
 
 
-
-
-
-
 /* About the project styles */
-
 .describe{
   margin-top: 150px;
   list-style-type: none;
@@ -194,8 +194,8 @@ a:hover{
 }
 
 
-/* Signup form styles */
 
+/* Signup form styles */
 .form.body{
   text-align: center;
 }
@@ -206,6 +206,11 @@ a:hover{
   background-color: #e7e7e7;
   border: none;
   border-radius: 20px;
+}
+
+.background.box h2{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .signup.form{
@@ -249,6 +254,8 @@ a:hover{
   text-decoration: underline;
   
 }
+
+
 
 /* Image upload form styles */
 .form.body{

@@ -95,6 +95,42 @@ module.exports.imageUpload_post = (req, res) => {
     
 }
 
+module.exports.imageUpload_postMultiple = (req, res) => {
+
+    const files = req.files;
+    //console.log(file);
+    // const image = {clothing: req.body.clothingType, link: req.file.location};
+    const token = req.cookies.jwt;
+    // console.log(req.body.clothingType);
+
+    if (token){
+        jwt.verify(token, jwtSecret, async (err, decodedToken) => {
+            if (err){
+                console.log(err.message);
+            }
+            else{
+                //console.log('token: ' , decodedToken);
+                let user = await User.findById(decodedToken.id);
+                console.log(user._id);
+                for (const file of files){
+                    try {
+                        user.images.push({clothing: req.body.clothingType, link: file.location});
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    
+                }
+                user.save();
+                
+            }
+        });
+    }
+    
+    // res.send(file);
+    res.redirect('upload');
+    
+}
+
 module.exports.upload = upload;
 module.exports.s3 = s3;
 

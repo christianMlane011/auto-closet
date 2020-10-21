@@ -12,6 +12,7 @@ router.get('/upload', imageUploadController.imageUpload_get);
 // and saves it to the multer storage space 
 router.post('/upload', imageUploadController.upload.single('imageUpload'), imageUploadController.imageUpload_post);
 
+router.post('/uploadMultiple', imageUploadController.upload.array('imageUpload', 10), imageUploadController.imageUpload_postMultiple);
 
 module.exports = router;
  
