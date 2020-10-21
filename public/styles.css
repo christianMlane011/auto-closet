@@ -58,6 +58,16 @@ a:hover{
     scroll-snap-align: start;
 }
 
+.upper_tile:hover{
+  z-index: 1;
+  top: 15px;
+}
+.upper_tile img:hover{
+  z-index: 2;
+  top: 15px;
+}
+
+
 .lower_tile img, .upper_tile img{
   max-height: 100%;
   max-width: 250px;
@@ -81,6 +91,11 @@ a:hover{
   width: 30px;
 }
 
+.upper [type=radio], .lower [type=radio]{ 
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
 
 
 /* Static Title and nav for each page */

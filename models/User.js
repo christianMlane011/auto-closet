@@ -21,15 +21,34 @@ const userSchema = mongoose.Schema({
         clothing: String,
         link: String
         }   
+    ],
+    outfits: [
+        {
+        top:    {
+                clothing: String,
+                link: String
+                },
+        bottom: {
+                clothing: String,
+                link: String
+                }  
+        }
     ]
 });
 
 // mongoose hook (middleware) - fire a function before doc is saved to db
 userSchema.pre('save', async  function (next) { // regular function instead of arrow function so that we have access to (this)
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+    // PREVOUS ISSUE: Users who made any changes (uploaded or deleted any pictures), where the db had to be saved after, were having their passwords
+    // rehashed so that the next time they logged out, they wouldn't be able to log in again with their original password. 
+    // Check if the user is new or the password has been modified, if so, we can rehash the password and change it before saving, otherwise just continue on
+    let user = this;
+    if (user.isModified('password') || user.isNew){
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } else next();
 });
+ 
  
 // static method to log in user
 // Get the user and if it exists, use bcrypt to compare the entered password against the stored one
@@ -42,6 +61,8 @@ userSchema.statics.login = async function(email, password) {
         if (auth){
             return user;
         }
+        // console.log(await bcrypt.hash(this.password, salt));
+        // console.log(user.password);
         throw Error('incorrect password');
     }
     throw Error('incorrect email');

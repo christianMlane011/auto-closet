@@ -7,6 +7,8 @@ router.get('/', clothingController.clothing_get);
 
 router.delete('/:id', clothingController.clothing_delete);
 
+router.post('/outfits', clothingController.clothing_outfit);
+
 
 
 

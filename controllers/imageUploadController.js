@@ -52,7 +52,7 @@ var storage = multers3({
             //console.log('jpg' === String(file.originalname.split('.')[1]));
             return cb('Jpg files only!');
         }    
-        cb(null, file.originalname + '-' + Date.now().toString() + '.jpg'); // change uploaded file name to original file name plus date at time of upload
+        cb(null, "userImage " + file.originalname + '-' + Date.now().toString() + '.jpg'); // change uploaded file name to original file name plus date at time of upload
         //checkFileType(file, cb);
     }
 })

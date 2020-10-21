@@ -6,6 +6,7 @@ const { dbKey } = require("./config");
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const imageUploadRoutes = require("./routes/imageUploadRoutes");
 const { addImages } = require("./middleware/imageUploadMiddleware");
+const bodyParser = require("body-parser");
 //const { uploadFile } = require("./fileUpload");
 // const aws = require("aws-sdk");
 const clothingRoutes = require("./routes/clothingRoutes");
@@ -20,6 +21,7 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(express.static('public'));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 
 

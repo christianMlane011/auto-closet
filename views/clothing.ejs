@@ -12,84 +12,113 @@
     <h2><br> To be able to properly match up items, it's best to have at least 6 pieces in each category<br></h2>
     <h5>Note: Each piece is displayed twice so that any piece can be matched with any other</h5>
 
-    <div class="upper">
-      <!-- Each image is added twice, so that the scrollbar can bring any element in the upper class to match any element in the lower class
-      so that users can match any piece of clothing they like -->
-      
-      <% var upperFlag = false; %>
-      <% if (user.images.length != 0){ %>
-        <% user.images.forEach(element => { %>
-          <% if (element.clothing == 'Top'){   %>
-            <% upperFlag = true; %>
-            <% size = (element.link.split('/')).length; %>
-            <% const originalName = (element.link.split('/')[size-1]); %>
-          <div class="upper_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
-            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
-              <img src="/trashcan.svg" alt="delete icon">
-            </a> 
-          </div>          
-      <% } }) } if (upperFlag == false) { %>
-        <h2>Sorry, no tops to display!</h2>
-      <% } %>
+    <form action="clothing/outfits" method="POST">
 
-      <% if (user.images.length != 0){ %>
-        <% user.images.forEach(element => { %> 
-          <% if (element.clothing == 'Top'){ %>
-            <% size = (element.link.split('/')).length; %>
-            <% const originalName = (element.link.split('/')[size-1]); %>
-          <div class="upper_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
-            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
-              <img src="/trashcan.svg" alt="delete icon">
-            </a> 
-          </div>          
-      <% } }) } %>
+      <div class="upper">
+        <!-- Each image is added twice, so that the scrollbar can bring any element in the upper class to match any element in the lower class
+        so that users can match any piece of clothing they like -->
+        
+        <% var upperFlag = false; %>
+        <% if (user.images.length != 0){ %>
+          <% user.images.forEach(element => { %>
+            <% if (element.clothing == 'Top'){   %>
+              <% upperFlag = true; %>
+              <% size = (element.link.split('/')).length; %>
+              <% const originalName = (element.link.split('/')[size-1]); %>
+              <% const radioName = originalName.split('%')[0] + 'Top' %>
 
-      
+            <div class="upper_tile">
+              <label>
+                <input type="radio" name="<%=radioName%>" value="<%=element.link%>">
+                <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
+                <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
+                  <img src="/trashcan.svg" alt="delete icon">
+                </a> 
+              </label>
+            </div>          
 
-    </div>
+        <% } }) } if (upperFlag == false) { %>
+          <h2>Sorry, no tops to display!</h2>
+        <% } %>
+
+        <% if (user.images.length != 0){ %>
+          <% user.images.forEach(element => { %> 
+            <% if (element.clothing == 'Top'){ %>
+              <% size = (element.link.split('/')).length; %>
+              <% const originalName = (element.link.split('/')[size-1]); %>
+              <% const radioName = originalName.split('%')[0] + 'Top'%>
+
+            <div class="upper_tile">
+              <label >
+                <input type="radio" name="<%=radioName%>" value="<%=element.link%>" required>
+                <img src="<%=element.link%>" width="300" alt="A piece of upper wear"> 
+                <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
+                  <img src="/trashcan.svg" alt="delete icon">
+                </a>
+              </label> 
+            </div>          
+            
+        <% } }) } %>
+
+        
+
+      </div>
     
-    <div class="lower">
+      <div class="lower">
 
-      <% var lowerFlag = false; %>
-      <% if (user.images.length != 0){ %>
-        <% user.images.forEach(element => { %> 
-          <% if (element.clothing == 'Bottom'){ %>
-            <% lowerFlag = true; %>
-            <% size = (element.link.split('/')).length; %>
-            <% const originalName = (element.link.split('/')[size-1]); %>
-          <div class="lower_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
-            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
-              <img src="/trashcan.svg" alt="delete icon">
-            </a> 
-          </div>          
-          <% } }) } if (lowerFlag == false) { %>
-            <h2>Sorry, no bottoms to display!</h2>
-          <% } %>
+        <% var lowerFlag = false; %>
+        <% if (user.images.length != 0){ %>
+          <% user.images.forEach(element => { %> 
+            <% if (element.clothing == 'Bottom'){ %>
+              <% lowerFlag = true; %>
+              <% size = (element.link.split('/')).length; %>
+              <% const originalName = (element.link.split('/')[size-1]); %>
+              <% const radioName = originalName.split('%')[0] + 'Bottom' %>
 
-      
-      <% if (user.images.length != 0){ %>
-        <% user.images.forEach(element => { %> 
-          <% if (element.clothing == 'Bottom'){ %>
-            <% size = (element.link.split('/')).length; %>
-            <% const originalName = (element.link.split('/')[size-1]); %>
-          <div class="lower_tile">
-            <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
-            <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
-              <img src="/trashcan.svg" alt="delete icon">
-            </a> 
-          </div>          
-          <% } }) } %>
+            <div class="lower_tile">
+              <label>
+                <input type="radio" name="<%=radioName%>" value="<%=element.link%>">
+                <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
+                <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
+                  <img src="/trashcan.svg" alt="delete icon">
+                </a> 
+              </label>
+            </div>          
 
-      
-      
+            <% } }) } if (lowerFlag == false) { %>
+              <h2>Sorry, no bottoms to display!</h2>
+            <% } %>
 
-  
-  
-    </div>
+        
+        <% if (user.images.length != 0){ %>
+          <% user.images.forEach(element => { %> 
+            <% if (element.clothing == 'Bottom'){ %>
+              <% size = (element.link.split('/')).length; %>
+              <% const originalName = (element.link.split('/')[size-1]); %>
+              <% const radioName = originalName.split('%')[0] + 'Bottom' %>
 
+            <div class="lower_tile">
+              <label> 
+                <input type="radio" name="<%=radioName%>" value="<%=element.link%>" required>
+                <img src="<%=element.link%>" width="300" alt="A piece of Bottom wear"> 
+                <a class="delete" id="delete" data-doc="<%= [element._id, user._id, originalName] %>">
+                  <img src="/trashcan.svg" alt="delete icon">
+                </a> 
+              </label>
+            </div>          
+
+            <% } }) } %>
+
+        
+        
+
+    
+    
+      </div>
+
+      <input type="submit" value="Save this outfit">
+
+    </form>
 
     <script>
       const trashcans = document.querySelectorAll("a.delete");
