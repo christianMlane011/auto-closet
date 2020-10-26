@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <%- include("partials/head.ejs") %> 
+  <body class = "outfits body">
+
+
+    <%- include("partials/nav.ejs") %>
+
+    <div class="outfits row">
+        
+        <% if (user.outfits.length != 0){ %>
+            <% user.outfits.forEach(element => { %>
+              <% size = (element.top.link.split('/')).length; %>
+              <% const originalTopName = (element.top.link.split('/')[size-1]); %>
+              <% const originalBottomName = (element.bottom.link.split('/')[size-1]); %>
+                <div class="outfits column">
+                    <img class="outfits-upper" src="<%=element.top.link%>" alt="A piece of upper wear"> <br> 
+                    <img class="outfits-lower" src="<%=element.bottom.link%>" alt="A piece of lower wear">
+                    <a class="outfit delete" id="delete" data-doc= <%=[element._id, user._id, originalTopName, originalBottomName]%> >
+                        <img src="/trashcan.svg" alt="delete icon">
+                    </a> 
+                </div>
+
+        <% })} %> 
+
+        
+        </div>
+
+
+    </div>
+
+    <script>
+        const trashcans = document.querySelectorAll(".outfit.delete");
+        console.log(trashcans);
+        for (const trashcan of trashcans){
+          trashcan.addEventListener('click', (e) => {
+          // console.log("event clicked");
+          const endpoint = `/clothing/outfits/${trashcan.dataset.doc}`;
+          // console.log('end', endpoint);
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+          })
+        };
+  
+        
+      </script>
+  
+
+
+  </body>
+</html>

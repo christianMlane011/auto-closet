@@ -38,8 +38,9 @@ const userSchema = mongoose.Schema({
 
 // mongoose hook (middleware) - fire a function before doc is saved to db
 userSchema.pre('save', async  function (next) { // regular function instead of arrow function so that we have access to (this)
+    
     // PREVOUS ISSUE: Users who made any changes (uploaded or deleted any pictures), where the db had to be saved after, were having their passwords
-    // rehashed so that the next time they logged out, they wouldn't be able to log in again with their original password. 
+    // rehashed so that the next time they logged out, they wouldn't be able to log in again with their original.
     // Check if the user is new or the password has been modified, if so, we can rehash the password and change it before saving, otherwise just continue on
     let user = this;
     if (user.isModified('password') || user.isNew){

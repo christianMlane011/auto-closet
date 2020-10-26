@@ -11,12 +11,14 @@ const addImages = (req, res, next) => {
             if (err){
                 console.log(err.message);
                 res.locals.images = null;
+                res.locals.outfits = null;
                 next();
             }
             else{
                 //console.log('token: ' , decodedToken);
                 let user = await User.findById(decodedToken.id);
                 res.locals.images = user.images;
+                res.locals.outfits = user.outfits;
                 // res.locals.images.forEach(element => {
                 //     console.log(element.link);
                 // });
@@ -26,6 +28,7 @@ const addImages = (req, res, next) => {
     }
     else{
         res.locals.images = null;
+        res.locals.outfits = null;
         next();
     }
 }
