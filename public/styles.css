@@ -355,6 +355,10 @@ a:hover{
   
 }
 
+.background.box span{
+  font-size: small;
+}
+
 
 
 /* Outfit page styles */
