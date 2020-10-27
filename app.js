@@ -7,8 +7,6 @@ const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const imageUploadRoutes = require("./routes/imageUploadRoutes");
 const { addImages } = require("./middleware/imageUploadMiddleware");
 const bodyParser = require("body-parser");
-//const { uploadFile } = require("./fileUpload");
-// const aws = require("aws-sdk");
 const clothingRoutes = require("./routes/clothingRoutes");
 
 

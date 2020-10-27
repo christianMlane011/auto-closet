@@ -98,10 +98,7 @@ module.exports.imageUpload_post = (req, res) => {
 module.exports.imageUpload_postMultiple = (req, res) => {
 
     const files = req.files;
-    //console.log(file);
-    // const image = {clothing: req.body.clothingType, link: req.file.location};
     const token = req.cookies.jwt;
-    // console.log(req.body.clothingType);
 
     if (token){
         jwt.verify(token, jwtSecret, async (err, decodedToken) => {

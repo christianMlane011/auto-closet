@@ -16,7 +16,7 @@
 
     <div class="background box img">
 
-      <h2>* For best results when viewing clothes, take a picture of each piece of  <br> clothing with the same device, and use a 1:1 aspect ratio *</h2>
+      <h2>* For best results when viewing clothes, take a picture of each piece of clothing with the same device, and use a 1:1 aspect ratio *</h2>
 
       
  
@@ -25,7 +25,8 @@
         <form action="/uploadMultiple" method="POST" id="imageForm" enctype="multipart/form-data">
           <fieldset>
             <h2>Select an image to upload </h2>
-            <input type="file" name="imageUpload" id="imageUpload" multiple >
+            <input type="file" name="imageUpload" id="imageUpload" multiple  onchange="checkFileExt(this);">
+            <div class="imageUpload error"></div>
             <br>
             <p>Please select which type of clothing you are uploading: </p>
             <label for="Top" id="Top">Top</label>
@@ -46,5 +47,24 @@
 
     </div>
 
+
+    <script>
+      function checkFileExt(fileUploaded) {
+        const control = document.getElementById("imageUpload");
+        const filelength = control.files.length;
+
+        for (const file of control.files) {
+          const fileName = file.name;
+          const fileExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+          if ((fileExt.toUpperCase() != "JPG" && fileExt.toUpperCase() != 'JPEG')) {
+            alert("Please make sure your file is in jpg or jpeg format .\n\n");
+            location.reload();
+          }
+        }
+      }
+
+    
+
+    </script>
   </body>
 </html>

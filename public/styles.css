@@ -209,6 +209,9 @@ a:hover{
   order: 1;
   text-align: center;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .container .column-two {
   text-align: center;
@@ -245,6 +248,7 @@ a:hover{
 .background.box h2{
   padding-top: 10px;
   padding-bottom: 10px;
+  margin: auto 5px;
 }
 
 .signup.form{
@@ -382,3 +386,114 @@ a:hover{
 }
 
 
+
+
+
+/* Media Queries for smaller sizes */
+@media screen and (max-width: 1200px){
+  .container{
+    display: block;
+  }
+
+  h2, h5{
+    width: 95%;
+    margin: auto;
+  }
+
+  .container .column{
+    width: 95%;
+    margin: auto;
+
+  }
+
+  .form.body .background.box{
+    margin: 180px auto;
+    width: 70%;
+    height: 20%;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 20px;
+  }
+
+}
+
+@media screen and (max-width: 900px){
+  .img.form{
+    text-align: left;
+    display: inline-block;
+    margin: 95px 0;
+    color: white;
+    width: 60%;
+  }
+
+}
+
+@media screen and (max-width: 640px){
+
+  body{
+    margin-top: 99px;
+  }
+
+  .form.body .background.box{
+    margin-top: 10px;
+    width: 100%;
+    height: 10%;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 20px;
+  }
+
+  .nav-bar{
+    position: static;
+    }
+
+  .nav-bar ul{
+    display: block;
+    padding: 0;
+    width: 100%;
+    
+  }
+
+  .nav-bar li{
+    margin: auto;
+  } 
+  
+  
+
+}
+
+@media screen and (max-width: 480px){
+
+  .upper_tile, .lower_tile{
+    scroll-snap-align: center;
+  }
+
+  .welcome{
+    position: static;
+  }
+
+  .welcome h1{
+    margin: 22px 5px;
+  }
+
+  body{
+    margin: auto;
+  }
+
+  .outfits.row{
+    scroll-snap-type: x mandatory;
+  }
+
+  .outfits.column{
+    scroll-snap-align: center;
+    margin: 12px 59px;
+  }
+
+  .img.form{
+    width: 100%;
+  }
+
+  .background.box h2{
+    font-size: 20 px;
+  }
+}
